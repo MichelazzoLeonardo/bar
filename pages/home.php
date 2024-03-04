@@ -10,7 +10,34 @@
     $password = '';
     $dbname = 'bar';
 
+    $conn = new mysqli($servername, $username, $password);
+    $query = "CREATE DATABASE IF NOT EXISTS bar;";
+    $conn->query($query);
+
     $conn = new mysqli($servername, $username, $password, $dbname);
+    $query ="CREATE TABLE IF NOT EXISTS prodotto (
+        id int(11) PRIMARY KEY AUTO_INCREMENT,
+        nome varchar(255) NOT NULL,
+        prezzo decimal(5,2) NOT NULL
+    );";
+    $conn->query($query);
+    $query = "CREATE TABLE IF NOT EXISTS cameriere (
+        id int(11) PRIMARY KEY AUTO_INCREMENT,
+        nome varchar(255) NOT NULL
+    );";
+    $conn->query($query);
+    $query = "CREATE TABLE IF NOT EXISTS ordinazione (
+        id int(11) PRIMARY KEY AUTO_INCREMENT,
+        idProdotto int(11) NOT NULL,
+        idCameriere int(11) NOT NULL,
+        quantita int(11) NOT NULL,
+        stato varchar(50) NOT NULL,
+        dataOra datetime NOT NULL,
+        FOREIGN KEY (idProdotto) REFERENCES prodotto (id),
+        FOREIGN KEY (idCameriere) REFERENCES cameriere (id)
+    );";
+    $conn->query($query);
+
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
         isset($_POST['prodotto']) && isset($_POST['cameriere']) && isset($_POST['quantita'])) {

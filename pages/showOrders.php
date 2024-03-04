@@ -4,6 +4,9 @@
     <meta charset="UTF-16">
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="../style/style.css">
+    <script>
+
+    </script>
     <?php
     $servername = 'localhost';
     $username = 'root';
